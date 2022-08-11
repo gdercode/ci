@@ -80,7 +80,22 @@ class CrimeController extends CI_Controller  						// main controller
 
 	public function logout_C()  										// logout_C function
 	{
-		session_destroy(); 
+		 if (session_status() === PHP_SESSION_ACTIVE) 
+		 {
+		  	echo "Active session";
+		  	$this->session->unset_userdata('adminpagePermit', '80');
+	 		$this->session->unset_userdata('crimepagePermit', '50');
+	 		$this->session->unset_userdata('homepagePermit', '30');
+		 	$this->session->unset_userdata('permit');
+		 	$this->session->unset_userdata('user');
+		 	$this->session->unset_userdata('user_details');
+		 	$this->session->unset_userdata();
+
+		 } 
+		 elseif (session_status() === PHP_SESSION_NONE) 
+		 {
+		  	echo "No session";
+		 } 
 		$this->load->view('crime/pages/logout_page');				// load a logout page 
 	}
 
