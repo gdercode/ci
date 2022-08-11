@@ -59,14 +59,14 @@ class UserController extends CI_Controller														 		// UserController
 //--------------------------------------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------------------------------------
-/*
+
 	public function roles_list_c()
 	{
 		$data['all_role']=$this->crimeManager->get_all_role(); 									// for come back to list page
 
 		$this->load->view('crime/pages/user/role_list_page',$data); 				 // go to the user_list_page with data array of all users
 	}	
-*/
+
 //--------------------------------------------------------------------------------------------------------------------------------------
 
 	public function users_find_list_c()
@@ -90,7 +90,7 @@ class UserController extends CI_Controller														 		// UserController
 //--------------------------------------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------------------------------------
-/*
+
 	public function role_find_list_c()
 	{
 		$role_id = htmlspecialchars( $this->input->post('role_id'));
@@ -107,7 +107,7 @@ class UserController extends CI_Controller														 		// UserController
 			$this->load->view('crime/pages/user/manipulate_role_page',$data);  			// go to the manipulate_role page with data
 		}
 	}
-*/
+
 //--------------------------------------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------------------------------
 
@@ -347,7 +347,7 @@ public function manipulate_role_c()
 			}
 		}
 		
-		$this->load_user_photo_page();
+		$this->load->view('crime/pages/user/manipulate_role_page',$data);
 	}
 
 	private function load_user_photo_page()
@@ -454,7 +454,7 @@ public function manipulate_role_c()
 	}
 
 //------------------------------------------------------------------------------------------------------------------------------------
-/*
+
 	public function add_role_c() 											// add a new role
 	{
 
@@ -490,7 +490,7 @@ public function manipulate_role_c()
 	        $this->load->view('crime/pages/user/create_role_page',$data);	 // return to registration page with error or success message
 	}
 
-*/
+
 //------------------------------------------------------------------------------------------------------------------------------------
 
 	public function browse_role_c() 											// browse_role

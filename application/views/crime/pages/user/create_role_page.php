@@ -1,9 +1,9 @@
 <?php
 	$_SESSION['page_name']='user';
-	$this->load->view('eexam/main_parts/header');  // call header 
+	$this->load->view('crime/main_parts/header');  // call header 
 ?> 	
 	<div class="menu">
-		<?php	$this->load->view('eexam/main_parts/menu'); 	// call menu ?> 
+		<?php	$this->load->view('crime/main_parts/menu'); 	// call menu ?> 
 	</div>
 <?php
 ?>
@@ -35,4 +35,4 @@
 
 </div>
 
-<?php $this->load->view('eexam/main_parts/footer'); ?>
+<?php $this->load->view('crime/main_parts/footer'); ?>

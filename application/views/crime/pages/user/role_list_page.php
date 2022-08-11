@@ -1,9 +1,9 @@
 <?php
 	$_SESSION['page_name']='user';
-	$this->load->view('eexam/main_parts/header');  // call header 
+	$this->load->view('crime/main_parts/header');  // call header 
 ?> 	
 	<div class="menu">
-		<?php	$this->load->view('eexam/main_parts/menu'); 	// call menu ?> 
+		<?php	$this->load->view('crime/main_parts/menu'); 	// call menu ?> 
 	</div>
 <?php
 	$error = isset($error) ? $error : '';
@@ -33,7 +33,7 @@
 							<td> <?php echo $result['role_name']; ?> </td>
 							<td> <?php echo $result['role_percentage']; ?> </td>
 							<td>
-								<form method="post" action="<?php echo base_url() ?>eexam/user/userController/role_find_list_c" >
+								<form method="post" action="<?php echo base_url() ?>crime/user/userController/role_find_list_c" >
 									<input type="submit" value="Edit" name="edit_button">
 									<input type="hidden" name="role_id" value="<?php echo $result['role_id'];  ?> "/>
 								</form>
@@ -53,4 +53,4 @@
 
 
 
-<?php $this->load->view('eexam/main_parts/footer'); ?>
+<?php $this->load->view('crime/main_parts/footer'); ?>

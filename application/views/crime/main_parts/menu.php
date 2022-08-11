@@ -11,7 +11,7 @@
 		?>
 			<li>
 
-				<a href="<?php echo base_url() ?>crime/crimeController/home_c" 
+				<a href="<?php echo base_url() ?>crime/CrimeController/home_c" 
 				id ="<?php  if( $_SESSION['page_name']=='home'){echo "selected";}else{echo "not_selected";}; ?>" > Home </a>
 			</li>
 
@@ -23,7 +23,7 @@
 		if ($permition>=$needed_course)
 		{ 
 		?>
-			<li><a href="<?php echo base_url() ?>crime/crimeController/course_pg_controller" 
+			<li><a href="<?php echo base_url() ?>crime/CrimeController/course_pg_controller" 
 				id ="<?php if( $_SESSION['page_name']=='course'){echo "selected";}else{echo "not_selected";}; ?>" > Courses </a>
 			</li>
 
@@ -34,7 +34,7 @@
 		if ($permition>=$needed_admin)
 		{ 
 		?>
-			<li><a href="<?php echo base_url() ?>crime/crimeController/user_pg_controller"  
+			<li><a href="<?php echo base_url() ?>crime/CrimeController/user_pg_controller"  
 				id ="<?php if( $_SESSION['page_name']=='user'){echo "selected";}else{echo "not_selected";}; ?>" > Site Administration </a>
 			</li>
 		<?php  

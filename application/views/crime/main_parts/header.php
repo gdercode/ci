@@ -17,25 +17,31 @@
 		?>
 			<div class="logout"> 
 				<b><?php echo $userDetails['username'];  ?></b> 
-				<a href="<?php  echo base_url() ?>crime/crimeController/logout_c" > Logout  </div></a> 
+				<a href="<?php  echo base_url() ?>crime/CrimeController/logout_c" > Logout  </div></a> 
 
 		<?php
 
 			}
 		?>
-			
+			<center><nav class="menu_breadge">
+				<!-- empty part for desine  -->
+			</nav></center>
+			<center><nav class="menu_breadge">
+				<font color="White" size="7px"> <b>Criminal Identification System</b> </font> 
+			</nav></center>
+			<center><nav class="menu_breadge">
+				<!-- empty part for desine  -->
+			</nav></center>
 
-			<img src="<?php echo base_url(); ?>assets/images/law_icon.png" height="50" align="left">
+			 <!-- <img src="<?php// echo base_url(); ?>assets/images/law_icon.png" height="50" align="left">
 			<div class="company_name">
 				<font size ='5' color="gray">
 					<b>Criminal Identification System</b>	
 				</font> <br>
 				<font color="gray"> CIS </font>
-			</div>
+			</div> -->
 
-			<center><nav class="menu_breadge">
-				<font color="White" size="7px"> <b>Criminal Identification System</b> </font> 
-			</nav></center>
+
 
 			
 			
