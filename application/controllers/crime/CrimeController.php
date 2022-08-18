@@ -197,14 +197,14 @@ class CrimeController extends CI_Controller  						// main controller
 	}
 
 //------------------------------------------------------------------------------------
-/*
-	Public function course_pg_controller()			// course_pg function
+
+	Public function crime_pg_controller()			// course_pg function
 	{
-		redirect('crime/course/courseController');		// go to course controller
+		redirect('crime/crime_identification/Crime_identification_Controller');		// go to course controller
 	}
 
 //-------------------------------------------------------------------------------------------------
-*/
+
 }
 
 ?>

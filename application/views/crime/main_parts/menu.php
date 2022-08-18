@@ -19,12 +19,12 @@
 		<?php
 		}
 
-		$needed_course = $this->session->userdata('coursepagePermit');
-		if ($permition>=$needed_course)
+		$needed_crime_identification = $this->session->userdata('crimepagePermit');
+		if ($permition>=$needed_crime_identification)
 		{ 
 		?>
-			<li><a href="<?php echo base_url() ?>crime/CrimeController/course_pg_controller" 
-				id ="<?php if( $_SESSION['page_name']=='course'){echo "selected";}else{echo "not_selected";}; ?>" > Courses </a>
+			<li><a href="<?php echo base_url() ?>crime/CrimeController/crime_pg_controller" 
+				id ="<?php if( $_SESSION['page_name']=='course'){echo "selected";}else{echo "not_selected";}; ?>" > Crime Identification </a>
 			</li>
 
 		<?php

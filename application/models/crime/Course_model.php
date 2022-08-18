@@ -1,5 +1,5 @@
 <?php
-class Course_model extends CI_Model
+class Crime_identification_model extends CI_Model
 {
 
 	private $course_table = 'course_table';
