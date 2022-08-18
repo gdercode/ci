@@ -6,21 +6,18 @@ class Crime_identification_Controller extends CI_Controller										// Course c
 	 	parent::__construct();  										// for parent class
 	 	$this->load->database();										// for database
 	 	$this->load->helper(array('form','url'));						// for url and form
-	 	$this->load->library(array('form_validation'));					// for form validation  
-	 	$this->load->model('crime/Crime_identification_model','crimeIdentificationManager');		// for model with an other name
-	 	$this->load->model('crime/Crime_model','crimeManager');		// for user model with an other name
-
-	 	// $this->session->set_userdata('courseCreatePermit', '70');
-
+	 	$this->load->library(array('form_validation'));					// for form validation  	
+	 	$this->load->model('crime/Crime_model','crimeManager');
+	 	$this->session->set_userdata('crimeCreatePermit', '70');
 
 	 	$needed = $this->session->userdata('crimepagePermit');
-		$this->check_course_page_permit($needed);
+		$this->check_crime_page_permit($needed);
 
 	 }
 
 //-------------------------------------------------------------------------------------------------------------------------------
 
-	private function check_course_page_permit($need)
+	private function check_crime_page_permit($need)
 	{
 		$permit = $this->session->userdata('permit');									// keep in variable permit session
 		$needed = $need;																// keep in variable needed permit session
@@ -34,39 +31,13 @@ class Crime_identification_Controller extends CI_Controller										// Course c
 		}
 	}
 
-//-------------------------------------------------------------------------------------------------------------------------------
-
-	private function check_course_enrolment_permit($courseID)
-	{
-		$permit = $this->session->userdata('permit');
-		$user = $this->session->userdata('user_details');
-		
-		$user_id = $user['user_id'];
-		$module_id = htmlspecialchars($courseID);
-
-		$connection = $this->crimeIdentificationManager->get_user_course_connection($user_id, $module_id);  // get User and course connection
-		
-		if ($permit>90)
-		{
-			return TRUE;
-		}
-		elseif(!empty($connection))
-		{
-			return TRUE;
-		}
-		elseif(empty($connection))
-		{
-			return FALSE;
-		}
-	}
-
 //---------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------
 
 	private function check_course_create_permit()
 	{
 		$permit = $this->session->userdata('permit');
-		$needed = $this->session->userdata('courseCreatePermit');
+		$needed = $this->session->userdata('crimeCreatePermit');
 		
 		if ($permit>=$needed)
 		{
@@ -87,21 +58,16 @@ class Crime_identification_Controller extends CI_Controller										// Course c
 
 //--------------------------------------------------------------------------------------------------------------------------------
 
-	private function welcome($welcome_error) 											// private function for course page
+	private function welcome($welcome_error) 
 	{
 		$data['welcome_error']=$welcome_error;
-		$data['all_course']=$this->crimeIdentificationManager->get_all_course(); 	
-		if (empty($data['all_course']))
-		{
-			$data['error'] = 'No course found. ';
-		}
-		$this->load->view('crime/pages/course/course_page',$data);			     		// load a course page with data
+		$this->load->view('crime/pages/face_recognition_page',$data);
 
 		return ;
 	}
 
 //-----------------------------------------------------------------------------------------------------------------------------------
-
+/*
 	public function course_page_c($moduleID)
 	{
 		$module_id = htmlspecialchars($moduleID);
@@ -2258,7 +2224,7 @@ public function  update_submition_c()
 	    
 	}
 
-
+*/
 //=================================================================================================================================
 	
 }
