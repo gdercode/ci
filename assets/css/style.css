@@ -2,7 +2,7 @@ body
 {
 	background-color: #ced4da;
 	margin: 0;
-	width:100vw;
+	width:100vw; 
 	height: 100vh;
 }
 
@@ -96,13 +96,15 @@ img
 #selected
 {
 	color: #fff;
-	background-color: #1177d1;
+	/*background-color: #1177d1;*/
+	background-color: gray;
 }
 
 .menu li a:hover
 {
 	font-weight: bold;
-	color: #1177d1;
+	/*color: #1177d1;*/
+	color: gray;
 	opacity: 0.8;
 	font-size: 20px;
 }

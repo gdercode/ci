@@ -1,8 +1,12 @@
 <?php
-$this->load->view('eexam/main_parts/header'); ?>
-<?php
+	$_SESSION['page_name']='identification';
+	$this->load->view('crime/main_parts/header'); 
+
 	$username = isset($username) ? $username : '';
 ?>
+	<div class="menu">
+		<?php	$this->load->view('crime/main_parts/menu'); 	// call menu ?> 
+	</div>
 
 <div id="logContainer">
 
@@ -23,4 +27,4 @@ $this->load->view('eexam/main_parts/header'); ?>
 <script difer src="<?php echo base_url('assets/javascript/face-login/face-login.js'); ?>"></script>
 
 
-<?php $this->load->view('eexam/main_parts/footer'); ?>
+<?php $this->load->view('crime/main_parts/footer'); ?>

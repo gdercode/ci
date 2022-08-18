@@ -34,7 +34,7 @@ class Crime_identification_Controller extends CI_Controller										// Course c
 //---------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------
 
-	private function check_course_create_permit()
+	private function check_crime_create_permit()
 	{
 		$permit = $this->session->userdata('permit');
 		$needed = $this->session->userdata('crimeCreatePermit');
@@ -139,7 +139,7 @@ class Crime_identification_Controller extends CI_Controller										// Course c
 			return;
 		}
 		
-		if($this->check_course_create_permit() == FALSE OR empty($data['courseData']) )
+		if($this->check_crime_create_permit() == FALSE OR empty($data['courseData']) )
 		{
 			$this->welcome(" You are not allowed to perfom this task ");					// go back to enrolment page
 			return;
@@ -163,7 +163,7 @@ class Crime_identification_Controller extends CI_Controller										// Course c
 			$this->welcome('You are not Enrolled Into this course');					// go back to enrolment page
 			return;
 		}
-		if($this->check_course_create_permit() == FALSE OR empty($data['courseData']))  // check permition
+		if($this->check_crime_create_permit() == FALSE OR empty($data['courseData']))  // check permition
 		{
 			$this->welcome(" You are not allowed to perfom this task ");					// go back to enrolment page
 			return;
@@ -206,7 +206,7 @@ class Crime_identification_Controller extends CI_Controller										// Course c
 			$this->welcome(" You are not Enrolled Into this course ");					// go back to enrolment page
 			return;
 		}
-		if($this->check_course_create_permit() == FALSE OR empty($data['courseData']))
+		if($this->check_crime_create_permit() == FALSE OR empty($data['courseData']))
 		{
 			$this->welcome(" You are not allowed to perfom this task ");					// go back to enrolment page
 			return;
@@ -254,7 +254,7 @@ class Crime_identification_Controller extends CI_Controller										// Course c
 			$this->welcome(" You are not Enrolled Into this course ");					// go back to enrolment page
 			return;
 		}
-		if($this->check_course_create_permit() == FALSE OR empty($data['courseData']))
+		if($this->check_crime_create_permit() == FALSE OR empty($data['courseData']))
 		{
 			$this->welcome(" You are not allowed to perfom this task ");					// go back to enrolment page
 			return;
@@ -303,7 +303,7 @@ class Crime_identification_Controller extends CI_Controller										// Course c
 			return;
 		}
 
-		if($this->check_course_create_permit() == FALSE OR empty($data['courseData']))
+		if($this->check_crime_create_permit() == FALSE OR empty($data['courseData']))
 		{
 			$this->welcome(" You are not allowed to perfom this task ");					// go back to enrolment page
 			return;
@@ -335,7 +335,7 @@ class Crime_identification_Controller extends CI_Controller										// Course c
 			return;
 		}
 
-		if($this->check_course_create_permit() == FALSE OR empty($data['courseData']))
+		if($this->check_crime_create_permit() == FALSE OR empty($data['courseData']))
 		{
 			$this->welcome(" You are not allowed to perfom this task ");					// go back to enrolment page
 			return;
@@ -421,7 +421,7 @@ class Crime_identification_Controller extends CI_Controller										// Course c
 			return;
 		}
 
-		if($this->check_course_create_permit() == FALSE)
+		if($this->check_crime_create_permit() == FALSE)
 		{
 			$this->welcome(" You are not allowed to perfom this task ");					// go back to enrolment page
 			return;
@@ -468,7 +468,7 @@ class Crime_identification_Controller extends CI_Controller										// Course c
 			return;
 		}
 
-		if($this->check_course_create_permit() == FALSE)
+		if($this->check_crime_create_permit() == FALSE)
 		{
 			$this->welcome(" You are not allowed to perfom this task ");					// go back to enrolment page
 			return;
@@ -570,7 +570,7 @@ class Crime_identification_Controller extends CI_Controller										// Course c
 		date_default_timezone_set('Africa/Kigali');
 		$now = date('Y-m-d H:i:s');
 
-		if($this->check_course_create_permit() == FALSE AND $now < $endTimestamp )
+		if($this->check_crime_create_permit() == FALSE AND $now < $endTimestamp )
 		{
 			$this->wait_the_start($exam_id, $module_id);					// wait the start of exam
 		}
@@ -666,7 +666,7 @@ class Crime_identification_Controller extends CI_Controller										// Course c
 			return;
 		}
 
-		if($this->check_course_create_permit() == FALSE)
+		if($this->check_crime_create_permit() == FALSE)
 		{
 			$this->welcome(" You are not allowed to perfom this task ");					// go back to enrolment page
 			return;
@@ -709,7 +709,7 @@ class Crime_identification_Controller extends CI_Controller										// Course c
 			return;
 		}
 
-		if($this->check_course_create_permit() == FALSE OR empty($courseData) OR empty( $this_exam ) OR empty( $this_question ))
+		if($this->check_crime_create_permit() == FALSE OR empty($courseData) OR empty( $this_exam ) OR empty( $this_question ))
 		{
 			$this->welcome(" You are not allowed to perfom this task ");					// go back to enrolment page
 			return;
@@ -776,7 +776,7 @@ public function  exam_remove_question_connection_c($moduleID, $questionID, $exam
 		return;
 	}
 
-	if($this->check_course_create_permit()==FALSE OR empty($data['courseData']) OR empty($examQuestionConnection) OR empty($this_exam) OR empty($this_question))
+	if($this->check_crime_create_permit()==FALSE OR empty($data['courseData']) OR empty($examQuestionConnection) OR empty($this_exam) OR empty($this_question))
 	{
 		$this->welcome(" You are not allowed to perfom this task ");					// go back to enrolment page
 		return;
@@ -898,7 +898,7 @@ private function ansering($moduleID,$questionID,$examID)
 	date_default_timezone_set('Africa/Kigali');
 	$now = date('Y-m-d H:i:s');
 
-	if($this->check_course_create_permit() == FALSE AND $now < $startTimestamp )
+	if($this->check_crime_create_permit() == FALSE AND $now < $startTimestamp )
 	{
 		$this->wait_the_start($exam_id, $module_id);					// wait the start of exam
 	}
@@ -969,7 +969,7 @@ public function  insert_exam_answer_question_c()
 	date_default_timezone_set('Africa/Kigali');
 	$now = date('Y-m-d H:i:s');
 
-	if($this->check_course_create_permit() == FALSE AND $now > $endTimestamp )
+	if($this->check_crime_create_permit() == FALSE AND $now > $endTimestamp )
 	{
 		$this->wait_the_start($exam_id, $module_id);					// wait the start of exam
 		return;
@@ -1032,7 +1032,7 @@ public function  exam_report_c($examID, $moduleID)
 		return;
 	}
 	
-	if($this->check_course_enrolment_permit($module_id) == FALSE OR $this->check_course_create_permit() == FALSE)
+	if($this->check_course_enrolment_permit($module_id) == FALSE OR $this->check_crime_create_permit() == FALSE)
 	{
 		$this->welcome(" You are not allowed to perfom this task ");
 		return;
@@ -1127,7 +1127,7 @@ public function  exam_grade_manual_page_c($user_id, $moduleID, $questionID, $exa
 		return;
 	}
 
-	if($this->check_course_enrolment_permit($module_id) == FALSE OR $this->check_course_create_permit() == FALSE)
+	if($this->check_course_enrolment_permit($module_id) == FALSE OR $this->check_crime_create_permit() == FALSE)
 	{
 		$this->welcome(" You are not allowed to perfom this task ");
 		return;
@@ -1273,7 +1273,7 @@ public function  download_report_c($examID, $moduleID)
 		return;
 	}
 	
-	if($this->check_course_enrolment_permit($module_id) == FALSE OR $this->check_course_create_permit() == FALSE)
+	if($this->check_course_enrolment_permit($module_id) == FALSE OR $this->check_crime_create_permit() == FALSE)
 	{
 		$this->welcome(" You are not allowed to perfom this task ");
 		return;
@@ -1706,7 +1706,7 @@ public function  update_submition_c()
 			return;
 		}
 
-		if($this->check_course_create_permit() == FALSE)
+		if($this->check_crime_create_permit() == FALSE)
 		{
 			$this->welcome(" You are not allowed to perfom this task ");					// go back to enrolment page
 			return;
@@ -1745,7 +1745,7 @@ public function  update_submition_c()
 			return;
 		}
 
-		if($this->check_course_create_permit() == FALSE)
+		if($this->check_crime_create_permit() == FALSE)
 		{
 			$this->welcome('You are not allowed to perfom this task');					// go back to enrolment page
 			return;
@@ -1798,7 +1798,7 @@ public function  update_submition_c()
 			return;
 		}
 
-		if($this->check_course_create_permit() == FALSE OR empty($data['courseData']))
+		if($this->check_crime_create_permit() == FALSE OR empty($data['courseData']))
 		{
 			$this->welcome('You are not allowed to perfom this task');					// go back to enrolment page
 			return;
@@ -1865,7 +1865,7 @@ public function  update_submition_c()
 			return;
 		}
 
-		if($this->check_course_create_permit() == FALSE OR empty($data['courseData']))
+		if($this->check_crime_create_permit() == FALSE OR empty($data['courseData']))
 		{
 			$this->welcome('You are not allowed to perfom this task');					// go back to enrolment page
 			return;
@@ -1911,7 +1911,7 @@ public function  update_submition_c()
 			return;
 		}
 
-		if($this->check_course_create_permit() == FALSE)
+		if($this->check_crime_create_permit() == FALSE)
 		{
 			$this->welcome('You are not allowed to perfom this task');					// go back to enrolment page
 			return;
@@ -1945,7 +1945,7 @@ public function  update_submition_c()
 			return;
 		}
 
-		if($this->check_course_create_permit() == FALSE)
+		if($this->check_crime_create_permit() == FALSE)
 		{
 			$this->welcome('You are not allowed to perfom this task');					// go back to enrolment page
 			return;
@@ -1990,7 +1990,7 @@ public function  update_submition_c()
 			return;
 		}
 
-		if($this->check_course_create_permit() == FALSE)
+		if($this->check_crime_create_permit() == FALSE)
 		{
 			$this->welcome('You are not allowed to perfom this task');					// go back to enrolment page
 			return;
@@ -2029,7 +2029,7 @@ public function  update_submition_c()
 			return;
 		}
 
-		if($this->check_course_create_permit() == FALSE OR empty($data['questionData']))
+		if($this->check_crime_create_permit() == FALSE OR empty($data['questionData']))
 		{
 			$this->welcome('You are not allowed to perfom this task');					// go back to enrolment page
 			return;
@@ -2156,7 +2156,7 @@ public function  update_submition_c()
 			return;
 		}
 
-		if($this->check_course_create_permit() == FALSE)
+		if($this->check_crime_create_permit() == FALSE)
 		{
 			$this->welcome('You are not allowed to perfom this task');					// go back to enrolment page
 			return;
@@ -2201,7 +2201,7 @@ public function  update_submition_c()
 			return;
 		}
 
-		if($this->check_course_create_permit() == TRUE)
+		if($this->check_crime_create_permit() == TRUE)
 		{
 			$this->welcome('You are not allowed to perfom this task');					// go back to enrolment page
 			return;

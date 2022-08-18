@@ -24,7 +24,7 @@
 		{ 
 		?>
 			<li><a href="<?php echo base_url() ?>crime/CrimeController/crime_pg_controller" 
-				id ="<?php if( $_SESSION['page_name']=='course'){echo "selected";}else{echo "not_selected";}; ?>" > Crime Identification </a>
+				id ="<?php if( $_SESSION['page_name']=='identification'){echo "selected";}else{echo "not_selected";}; ?>" > Crime Identification </a>
 			</li>
 
 		<?php
