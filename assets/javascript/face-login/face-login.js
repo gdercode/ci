@@ -1,92 +1,50 @@
- const video = document.getElementById('videoInput')
+ const imageBoxView = document.getElementById('imageBoxView')
+ const imageUpload = document.getElementById('imageUpload')
  var username = document.getElementById('username').value
  var baseURL = document.getElementById('baseURL').value
  // const assetsURL = '../../assets'
- const assetsURL= window.location.origin+'/codeIgniter/assets'
+ const assetsURL= window.location.origin+'/ci/assets'
 
 Promise.all([
     faceapi.nets.faceRecognitionNet.loadFromUri(assetsURL+'/models'),
     faceapi.nets.faceLandmark68Net.loadFromUri(assetsURL+'/models'),
     faceapi.nets.ssdMobilenetv1.loadFromUri(assetsURL+'/models') //heavier/accurate version of tiny face detector
-]).then(start).catch(document.getElementById('message').innerHTML = "Loading" )
+]).then(start).catch(document.getElementById('message').innerHTML = "Wait" )
 
 
 function start() 
 {
-    // navigator.getUserMedia(
-    //     { video:{} },
-    //     stream => video.srcObject = stream,
-    //     err => console.error(err)
-    // )
-
-    navigator.mediaDevices.getUserMedia({ audio: false, video: true }).then(function(stream) {
-      if ("srcObject" in video) {
-        video.srcObject = stream;
-      } else {
-        // Avoid using this in new browsers, as it is going away.
-        video.src = window.URL.createObjectURL(stream);
-      }
-      video.onloadedmetadata = function(e) {
-        video.play();
-      };
-    })
-    .catch(function(err) {
-      console.log(err.name + ": " + err.message);
-    });
-
-
-
-    video.addEventListener('play', async () => {
-        
-        const displaySize = { width: video.width, height: video.height }
-        var failedChecking = 0;
-        setInterval(async () => 
+  document.getElementById('message').innerHTML = ' Yoou can upload now ';
+    imageUpload.addEventListener('change', async () => {
+        const image = await faceapi.bufferToImage(imageUpload.files[0])
+        const displaySize = { width: image.width, height: image.height }
+        image.height='360'
+        image.width='380'
+        imageBoxView.append(image)
+        // document.getElementById('message').innerHTML = failedChecking;
+        const detections = await faceapi.detectAllFaces(image).withFaceLandmarks().withFaceDescriptors()
+        var available_users = detections.length
+        console.log(available_users)
+        if (available_users>0) 
         {
-            document.getElementById('message').innerHTML = failedChecking;
-            
-            const detections = await faceapi.detectAllFaces(video).withFaceLandmarks().withFaceDescriptors()
-            var available_users = detections.length
-            console.log(available_users)
-            if (available_users>0) 
-            {
-                const resizedDetections = faceapi.resizeResults(detections, displaySize)
-                const labeledDescriptors = await loadLabeledImages()
-                const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors, 0.4)
-                const result  = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor))
-                let izina = result[0]['label']
-                if (izina == username)
-                 {
-                   $.ajax(
-                    {
-                        url:baseURL+'eexam/EexamController/face_recognition_C/',
-                        type:'POST',
-                        data:
-                        {
-                            sent_user: username
-                        },
-                        success: function(data)
-                        {
-                            window.location.href = "http://localhost/codeIgniter/eexam/eexamController/login_C"
-                        }
-                    });
-                 }
-                 else
-                 {
-                   if (failedChecking<4) 
-                   {
-                    failedChecking += 1;
-                   }
-                   else
-                   {
-                    window.location.href = "http://localhost/codeIgniter/eexam/eexamController/login_C"
-                   }
-                 }
-            }
-            else
-            {
-                 document.getElementById('message').innerHTML = 'No face detected ';
-            }
-        }, 1000)
+            const resizedDetections = faceapi.resizeResults(detections, displaySize)
+            const labeledDescriptors = await loadLabeledImages()
+            const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors, 0.4)
+            const result  = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor))
+            let izina = result[0]['label']
+            if (izina == username)
+             {
+               document.getElementById('message').innerHTML = 'Criminal detected ';
+             }
+             else
+             {
+                document.getElementById('message').innerHTML = 'Not in the list we have ';
+             }
+        }
+        else
+        {
+             document.getElementById('message').innerHTML = 'No face detected ';
+        }
     })
 }
 
@@ -97,10 +55,9 @@ function loadLabeledImages() {
         labels.map(async (label)=>{
             const descriptions = []
             for(let i=1; i<=4; i++) {
-                const img = await faceapi.fetchImage(assetsURL+`/images/users/${label}/${i}.jpg`).catch( ()=>{
+                const img = await faceapi.fetchImage(assetsURL+`/images/users/superAdmin/${i}.jpg`).catch( ()=>{
                     document.getElementById('secondMessage').innerHTML = "No Image registered for this user"
                     document.getElementById('message').style.visibility = 'hidden'
-                    video.pause()
                 })
 
                 const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
