@@ -1,9 +1,9 @@
 <?php
 	$_SESSION['page_name']='user';
-	$this->load->view('eexam/main_parts/header');  // call header 
+	$this->load->view('crime/main_parts/header');  // call header 
 ?> 	
 	<div class="menu">
-		<?php	$this->load->view('eexam/main_parts/menu'); 	// call menu ?> 
+		<?php	$this->load->view('crime/main_parts/menu'); 	// call menu ?> 
 	</div>
 <?php
 ?>
@@ -12,7 +12,7 @@
 
 	<div id="registerBox">
 
-		<h1>Create a new Course</h1>
+		<h1>Register Crime</h1>
 
 		<form id="registerForm" method="post">
 			 <h3><?php echo $error; ?> </h3>
@@ -40,4 +40,4 @@
 
 </div>
 
-<?php $this->load->view('eexam/main_parts/footer'); ?>
+<?php $this->load->view('crime/main_parts/footer'); ?>

@@ -526,8 +526,8 @@ public function manipulate_role_c()
 									// FOR COURSE
 //-------------------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------------------
-/*
-	public function add_course_c() 											// add a new course
+
+	public function add_crime_c() 											// add a new course
 	{
 
 			// set rules for form validation 
@@ -561,12 +561,12 @@ public function manipulate_role_c()
 				}	
 				
 	        }
-	        $this->load->view('crime/pages/user/create_course_page',$data);	 // return to course registration page with error or success message
+	        $this->load->view('crime/pages/user/create_crime_page',$data);	 // return to course registration page with error or success message
 	}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------------------
-
+/*
 	public function browse_course_c() 											// browse_course
 	{
 		$this->form_validation->set_rules('module_id', 'Module ID', 'trim|required|min_length[1]|max_length[12]'); // rules for module ID;
