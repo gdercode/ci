@@ -33,7 +33,7 @@
 		</li>
 		
 		<li>
-			<a href="<?php echo base_url() ?>crime/user/userController/add_crime_c"> Register crime </a>
+			<a href="<?php echo base_url() ?>crime/user/userController/add_crime_c"> Register wanted </a>
 		</li>
 	</ul>
 </nav>

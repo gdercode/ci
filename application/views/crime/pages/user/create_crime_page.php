@@ -12,24 +12,32 @@
 
 	<div id="registerBox">
 
-		<h1>Register Crime</h1>
+		<h1>Register Wanted</h1>
 
 		<form id="registerForm" method="post">
 			 <h3><?php echo $error; ?> </h3>
 
 			<p>	
-				<h5><?php echo form_error('module_id'); ?></h5>
-				<input type="text" name="module_id" value="<?php echo set_value('module_id'); ?>" placeholder="Module ID" />
+				<h5><?php echo form_error('wanted_id'); ?></h5>
+				<input type="text" name="wanted_id" value="<?php echo set_value('wanted_id'); ?>" placeholder="Wanted ID" />
 			</p>
 
 			<p>	
-				<h5><?php echo form_error('module_name'); ?></h5>
-				<input type="text" name="module_name" value="<?php echo set_value('module_name'); ?>" placeholder="Module Name" />
+				<h5><?php echo form_error('wanted_first_name'); ?></h5>
+				<input type="text" name="wanted_first_name" value="<?php echo set_value('wanted_first_name'); ?>" placeholder="First Name" />
+			</p>
+			<p>	
+				<h5><?php echo form_error('wanted_last_name'); ?></h5>
+				<input type="text" name="wanted_last_name" value="<?php echo set_value('wanted_last_name'); ?>" placeholder="Last Name" />
+			</p>
+			<p>	
+				<h5><?php echo form_error('wanted_gender'); ?></h5>
+				<input type="text" name="wanted_gender" value="<?php echo set_value('wanted_gender'); ?>" placeholder="Gender" />
 			</p>
 
 			<p>	
-				<h5><?php echo form_error('module_credit'); ?></h5>
-				<input type="text" name="module_credit" value="<?php echo set_value('module_credit'); ?>" placeholder="Module Credit" />
+				<h5><?php echo form_error('wanted_age'); ?></h5>
+				<input type="text" name="wanted_age" value="<?php echo set_value('wanted_age'); ?>" placeholder="Age" />
 			</p>
 			
 			<p> <input type="submit" name="reg_button" value="Create"> </p>

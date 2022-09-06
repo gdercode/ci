@@ -531,9 +531,11 @@ public function manipulate_role_c()
 	{
 
 			// set rules for form validation 
-			$this->form_validation->set_rules('module_id', 'Module ID', 'trim|required|min_length[1]|max_length[10]'); 
-			$this->form_validation->set_rules('module_name', 'Course Name', 'trim|required|alpha_numeric|min_length[2]|max_length[12]'); 
-			$this->form_validation->set_rules('module_credit', 'Course Credit', 'trim|required|numeric|min_length[1]|max_length[2]'); 
+			$this->form_validation->set_rules('wanted_id', 'Wanted ID', 'trim|required|min_length[1]|max_length[10]'); 
+			$this->form_validation->set_rules('wanted_first_name', 'First Name', 'trim|required|alpha_numeric|min_length[2]|max_length[12]'); 
+			$this->form_validation->set_rules('wanted_last_name', 'Last Name', 'trim|required|alpha_numeric|min_length[2]|max_length[12]'); 
+			$this->form_validation->set_rules('wanted_gender', 'Gender', 'trim|required|alpha_numeric|min_length[2]|max_length[6]'); 
+			$this->form_validation->set_rules('wanted_age', 'Age', 'trim|required|numeric|min_length[1]|max_length[3]'); 
 
 	        if ($this->form_validation->run() == FALSE)								 // if validation fail
 	        {
@@ -542,9 +544,11 @@ public function manipulate_role_c()
 	        else    			// if yes 
 	        {
 		         	// remove tags for security
-				$module_id=htmlspecialchars( $this->input->post('module_id') );
-				$module_name=htmlspecialchars( $this->input->post('module_name') );
-				$module_credit=htmlspecialchars( $this->input->post('module_credit') );
+				$wanted_id=htmlspecialchars( $this->input->post('wanted_id') );
+				$wanted_first_name=htmlspecialchars( $this->input->post('wanted_first_name') );
+				$wanted_last_name=htmlspecialchars( $this->input->post('wanted_last_name') );
+				$wanted_gender=htmlspecialchars( $this->input->post('wanted_gender') );
+				$wanted_age=htmlspecialchars( $this->input->post('wanted_age') );
 
 				// check the existance of the module id
 				$row=$this->crimeManager->get_course($module_id);  // get course with this course id

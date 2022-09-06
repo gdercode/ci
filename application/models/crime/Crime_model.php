@@ -287,6 +287,81 @@ public function get_user_password($user_id)
 	}
 
 //------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
+				//		FOR WANTED
+//-----------------------------------------------------------------------------------
+
+	private $wanted_table = 'wanted_table';
+
+//-------------------------------------------------------------------------------------
+
+	public function insert_wanted($role_name,$role_percentage)
+	{
+		return $this->db->set( array(
+										'wanted_id'			=>'',
+										'wanted_first_name'	=>$wanted_first_name,
+										'wanted_last_name'	=>$wanted_last_name,
+										'wanted_gender'		=>$wanted_gender,
+										'wanted_age'		=>$wanted_age
+									) 
+							 )
+						->insert($this->wanted_table);
+	}
+
+//------------------------------------------------------------------------------------
+
+	public function get_all_wanted()
+	{
+	
+		return $this->db->select('`wanted_id`,`wanted_first_name`,`wanted_last_name`,`wanted_gender`,`wanted_age`', false)
+						->from($this->wanted_table)
+						->order_by('wanted_id','desc')
+						->get()
+						->result_array();
+	}
+
+//-----------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------
+
+	public function update_wanted($wanted_id,$wanted_first_name,$wanted_last_name,$wanted_gender,$wanted_age)
+	{
+		return $this->db->set( array(
+										'wanted_first_name'=>$wanted_first_name,
+										'wanted_last_name'=>$wanted_last_name,
+										'wanted_gender'=>$wanted_gender,
+										'wanted_age'=>$wanted_age
+									) 
+							 )
+						->where('wanted_id',$wanted_id)
+						->update($this->wanted_table);
+	}
+
+//------------------------------------------------------------------------------
+
+	public function get_wanted_id($wanted_id)
+	{
+	
+		return $this->db->select('`wanted_id`,`wanted_first_name`,`wanted_last_name`,`wanted_gender`,`wanted_age`', false)
+						->from($this->wanted_table)
+						->order_by('wanted_id','desc')
+						->where('wanted_id',$wanted_id)
+						->get()
+						->row_array();
+	}
+
+//-----------------------------------------------------------------------------
+
+	public function delete_wanted($wanted_id)
+	{
+		return $this->db->where('wanted_id',$wanted_id)->delete($this->wanted_table);
+	}
+
+//------------------------------------------------------------------------------
 
 					//	OTHER COMMENTS
 //------------------------------------------------------------------------------
