@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 16, 2022 at 04:53 PM
+-- Generation Time: Sep 06, 2022 at 11:11 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -46,7 +46,7 @@ CREATE TABLE `all_user_table` (
 
 INSERT INTO `all_user_table` (`user_id`, `user_first_name`, `user_last_name`, `user_email`, `user_mobile`, `username`, `user_password`, `registration_date`, `user_update_date`, `user_role_id`) VALUES
 (1, 'superAdmin', 'superAdmin', 'superAdmin@gmail.com', '+250782546969', 'superAdmin', '$2y$10$psjPKzl2I4DauRYmSAnxUOA3Ev/Z5qrWPWQnPdM40TlF7qPhcuTJe', '2022-08-04 10:42:55', '0000-00-00 00:00:00', 1),
-(3, 'kagabo', 'pascal', 'kagabo@gmail.com', '+250782546968', 'kagabo', '$2y$10$P/nHHTQusyihPMiPuqDFWuMvUqJNGn6C6/kDG8Gu1RfQCe7PW2tlC', '2022-08-04 20:28:58', '2022-08-04 20:28:58', 1);
+(3, 'kagabo', 'pascal', 'kagabo@gmail.com', '+250782546968', 'kagabo', '$2y$10$E15wqK4vw0LPneJH94OO.u0fjijV/2Ea2y9NTZxAA3cgJZohdqdPS', '2022-08-04 20:28:58', '0000-00-00 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -66,7 +66,34 @@ CREATE TABLE `role_table` (
 
 INSERT INTO `role_table` (`role_id`, `role_name`, `role_percentage`) VALUES
 (1, 'superAdmin', 100),
-(4, 'anyRole2', 35);
+(4, 'anyone', 20);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `testimony_table`
+--
+
+CREATE TABLE `testimony_table` (
+  `t_id` int(11) NOT NULL,
+  `u_id` int(11) NOT NULL,
+  `w_id` int(11) NOT NULL,
+  `testimony` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wanted_table`
+--
+
+CREATE TABLE `wanted_table` (
+  `wanted_id` int(11) NOT NULL,
+  `wanted_First_name` varchar(50) DEFAULT NULL,
+  `wanted_last_name` varchar(50) DEFAULT NULL,
+  `wanted_gender` varchar(6) DEFAULT NULL,
+  `wanted_age` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
@@ -86,6 +113,20 @@ ALTER TABLE `role_table`
   ADD PRIMARY KEY (`role_id`);
 
 --
+-- Indexes for table `testimony_table`
+--
+ALTER TABLE `testimony_table`
+  ADD PRIMARY KEY (`t_id`),
+  ADD KEY `u_id` (`u_id`),
+  ADD KEY `w_id` (`w_id`);
+
+--
+-- Indexes for table `wanted_table`
+--
+ALTER TABLE `wanted_table`
+  ADD PRIMARY KEY (`wanted_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -102,6 +143,18 @@ ALTER TABLE `role_table`
   MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `testimony_table`
+--
+ALTER TABLE `testimony_table`
+  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `wanted_table`
+--
+ALTER TABLE `wanted_table`
+  MODIFY `wanted_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -110,6 +163,13 @@ ALTER TABLE `role_table`
 --
 ALTER TABLE `all_user_table`
   ADD CONSTRAINT `all_user_table_ibfk_1` FOREIGN KEY (`user_role_id`) REFERENCES `role_table` (`role_id`);
+
+--
+-- Constraints for table `testimony_table`
+--
+ALTER TABLE `testimony_table`
+  ADD CONSTRAINT `testimony_table_ibfk_1` FOREIGN KEY (`u_id`) REFERENCES `all_user_table` (`user_id`),
+  ADD CONSTRAINT `testimony_table_ibfk_2` FOREIGN KEY (`w_id`) REFERENCES `wanted_table` (`wanted_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
