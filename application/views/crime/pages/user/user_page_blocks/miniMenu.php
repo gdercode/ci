@@ -25,7 +25,7 @@
 		</li>
 
 		<li>
-			<a href="<?php echo base_url() ?>crime/user/userController/browse_course_c" > Browse a Course </a>
+			<a href="<?php echo base_url() ?>crime/user/userController/browse_wanted_c" > Browse a Wanted Person </a>
 		</li>
 
 		<li>
@@ -33,7 +33,7 @@
 		</li>
 		
 		<li>
-			<a href="<?php echo base_url() ?>crime/user/userController/add_crime_c"> Register wanted </a>
+			<a href="<?php echo base_url() ?>crime/user/userController/add_wanted_c"> Register wanted </a>
 		</li>
 	</ul>
 </nav>

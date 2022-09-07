@@ -18,11 +18,6 @@
 			 <h3><?php echo $error; ?> </h3>
 
 			<p>	
-				<h5><?php echo form_error('wanted_id'); ?></h5>
-				<input type="text" name="wanted_id" value="<?php echo set_value('wanted_id'); ?>" placeholder="Wanted ID" />
-			</p>
-
-			<p>	
 				<h5><?php echo form_error('wanted_first_name'); ?></h5>
 				<input type="text" name="wanted_first_name" value="<?php echo set_value('wanted_first_name'); ?>" placeholder="First Name" />
 			</p>

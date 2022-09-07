@@ -300,7 +300,24 @@ public function get_user_password($user_id)
 
 //-------------------------------------------------------------------------------------
 
-	public function insert_wanted($role_name,$role_percentage)
+	public function check_wanted_exist($wanted_first_name,$wanted_last_name)
+	{
+		return $this->db->select('`wanted_id`,`wanted_first_name`,`wanted_last_name`,`wanted_gender`,`wanted_age`', false)
+						->from($this->wanted_table)
+						->order_by('wanted_id','desc')
+						->where(array(
+										'wanted_first_name' => $wanted_first_name,
+										'wanted_last_name' => $wanted_last_name
+									)
+							)
+						->get()
+						->row_array();
+	}
+
+//------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------
+
+	public function insert_wanted($wanted_first_name,$wanted_last_name,$wanted_gender,$wanted_age)
 	{
 		return $this->db->set( array(
 										'wanted_id'			=>'',
@@ -356,9 +373,15 @@ public function get_user_password($user_id)
 
 //-----------------------------------------------------------------------------
 
-	public function delete_wanted($wanted_id)
+	public function delete_wanted($wanted_first_name,$wanted_last_name)
 	{
-		return $this->db->where('wanted_id',$wanted_id)->delete($this->wanted_table);
+		return $this->db->where( array(
+										'wanted_first_name' => $wanted_first_name,
+										'wanted_last_name' => $wanted_last_name
+									   )
+								)->delete($this->wanted_table);
+							
+			
 	}
 
 //------------------------------------------------------------------------------

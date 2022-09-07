@@ -523,103 +523,117 @@ public function manipulate_role_c()
 
 //----------------------------------------------------------------------------------------------------------------------------------------
 
-									// FOR COURSE
+									// FOR WANTED
 //-------------------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
-	public function add_crime_c() 											// add a new course
+	public function add_wanted_c() 											// add a new course
 	{
+		$this->form_validation->set_rules('wanted_first_name', 'First Name', 'trim|required|alpha_numeric|min_length[2]|max_length[12]'); 
+		$this->form_validation->set_rules('wanted_last_name', 'Last Name', 'trim|required|alpha_numeric|min_length[2]|max_length[12]'); 
+		$this->form_validation->set_rules('wanted_gender', 'Gender', 'trim|required|alpha_numeric|min_length[2]|max_length[6]'); 
+		$this->form_validation->set_rules('wanted_age', 'Age', 'trim|required|numeric|min_length[1]|max_length[3]'); 
 
-			// set rules for form validation 
-			$this->form_validation->set_rules('wanted_id', 'Wanted ID', 'trim|required|min_length[1]|max_length[10]'); 
-			$this->form_validation->set_rules('wanted_first_name', 'First Name', 'trim|required|alpha_numeric|min_length[2]|max_length[12]'); 
-			$this->form_validation->set_rules('wanted_last_name', 'Last Name', 'trim|required|alpha_numeric|min_length[2]|max_length[12]'); 
-			$this->form_validation->set_rules('wanted_gender', 'Gender', 'trim|required|alpha_numeric|min_length[2]|max_length[6]'); 
-			$this->form_validation->set_rules('wanted_age', 'Age', 'trim|required|numeric|min_length[1]|max_length[3]'); 
+        if ($this->form_validation->run() == FALSE)								 // if validation fail
+        {
+        	$data['error'] = ''; // nothing to do 
+        }
+        else    			// if yes 
+        {
+	         	// remove tags for security
+			$wanted_first_name=htmlspecialchars( $this->input->post('wanted_first_name') );
+			$wanted_last_name=htmlspecialchars( $this->input->post('wanted_last_name') );
+			$wanted_gender=htmlspecialchars( $this->input->post('wanted_gender') );
+			$wanted_age=htmlspecialchars( $this->input->post('wanted_age') );
 
-	        if ($this->form_validation->run() == FALSE)								 // if validation fail
-	        {
-	        	$data['error'] = ''; // nothing to do , you will go back to the form 
-	        }
-	        else    			// if yes 
-	        {
-		         	// remove tags for security
-				$wanted_id=htmlspecialchars( $this->input->post('wanted_id') );
-				$wanted_first_name=htmlspecialchars( $this->input->post('wanted_first_name') );
-				$wanted_last_name=htmlspecialchars( $this->input->post('wanted_last_name') );
-				$wanted_gender=htmlspecialchars( $this->input->post('wanted_gender') );
-				$wanted_age=htmlspecialchars( $this->input->post('wanted_age') );
-
-				// check the existance of the module id
-				$row=$this->crimeManager->get_course($module_id);  // get course with this course id
-
-				if(empty($row)) // no course existance, then we have to create a new course
-				{
-					$this->crimeManager->insert_course($module_id,$module_name,$module_credit); // insert a new course
-					$data['error']="A New Course created successfully"; // set a success message
-				}
-				else // Course ID exist
-				{
-					// we have to give error message for course existance
-					$data['error']="This Module ID already exists";
-				}	
-				
-	        }
-	        $this->load->view('crime/pages/user/create_crime_page',$data);	 // return to course registration page with error or success message
+		// check the existance of wanted person
+			$row=$this->crimeManager->check_wanted_exist($wanted_first_name,$wanted_last_name);  
+			$rows=$this->crimeManager->check_wanted_exist($wanted_last_name,$wanted_first_name);
+			if(empty($row) AND empty($rows)) 
+			{
+				$this->crimeManager->insert_wanted($wanted_first_name,$wanted_last_name,$wanted_gender,$wanted_age);
+				$data['error']="recorded successfully"; // set a success message
+			}
+			else // Course ID exist
+			{
+				// we have to give error message for course existance
+				$data['error']="This Person already exists";
+			}
+			
+        }
+        $this->load->view('crime/pages/user/create_crime_page',$data);	 // return to course registration page with error or success message
 	}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------------------
-/*
-	public function browse_course_c() 											// browse_course
+
+	public function browse_wanted_c() 			// browse_wanted
 	{
-		$this->form_validation->set_rules('module_id', 'Module ID', 'trim|required|min_length[1]|max_length[12]'); // rules for module ID;
+		$this->form_validation->set_rules('wanted_first_name', 'First Name', 'trim|required|alpha_numeric|min_length[2]|max_length[12]'); 
+		$this->form_validation->set_rules('wanted_last_name', 'Last Name', 'trim|required|alpha_numeric|min_length[2]|max_length[12]'); 
 
-        if ($this->form_validation->run() == FALSE) 													// if validation fail
+        if ($this->form_validation->run() == FALSE) 			// if validation fail
         {
-            $this->load->view('crime/pages/user/browse_course_page'); 				 // go back to the browse_course_page with data
+            $this->load->view('crime/pages/user/browse_wanted_page');
         }
-        else 																								// if yes 
+        else 																								
         {
-			$module_id = htmlspecialchars( $this->input->post('module_id') ); 					// remove tags for security
+			$wanted_first_name = htmlspecialchars( $this->input->post('wanted_first_name') ); 
+			$wanted_last_name = htmlspecialchars( $this->input->post('wanted_last_name') ); 
 
-         	// check the existance of course
-			$data['the_course'] = $this->crimeManager->get_course($module_id);  						// get all of courses by course ID
 
-			if(empty( $data['the_course'] ))						// no course existance, then we have to give back a message
+			$the_wanted= $this->crimeManager->check_wanted_exist($wanted_first_name,$wanted_last_name); 
+			$the_wanted2= $this->crimeManager->check_wanted_exist($wanted_last_name,$wanted_first_name);  
+
+			if(empty($the_wanted) AND empty($the_wanted2))
 			{
-				$data['error']="No Course found"; 										// set a error message
-			 	$this->load->view('crime/pages/user/browse_course_page',$data);	 // return to browse_course_page with error or success message
+				$data['error']="No Person found"; 			// set a error message
+			 	$this->load->view('crime/pages/user/browse_wanted_page',$data);	
 			}
-			else 																// course exist							
+			else 	
 			{
-				$this->load->view('crime/pages/user/manipulate_course_page',$data);  			// go to the manipulate_user page with data
+				if(!empty($the_wanted))
+				{
+					$data['the_wanted'] = $the_wanted;
+				}
+
+				if(!empty($the_wanted2))
+				{
+					$data['the_wanted'] = $the_wanted2;
+				}
+				
+				$this->load->view('crime/pages/user/manipulate_wanted_page',$data); 
 			}
         }
 	}
 
 //-----------------------------------------------------------------------------------------------------------------------------------
 
-public function manipulate_course_c()
+public function manipulate_wanted_c()
 	{
 		if ($this->input->post('update_button'))
 		{
 			// set form rules
 
-			$this->form_validation->set_rules('module_id', 'Course ID', 'trim|required|alpha_numeric|min_length[2]|max_length[12]'); 
-			$this->form_validation->set_rules('module_name', 'Course Name', 'trim|required|alpha_numeric|min_length[2]|max_length[12]'); 
-			$this->form_validation->set_rules('module_credit', 'Course Credit', 'trim|numeric|required|min_length[1]|max_length[4]');  
+			$this->form_validation->set_rules('wanted_first_name', 'First Name', 'trim|required|alpha_numeric|min_length[2]|max_length[12]'); 
+		$this->form_validation->set_rules('wanted_last_name', 'Last Name', 'trim|required|alpha_numeric|min_length[2]|max_length[12]'); 
+		$this->form_validation->set_rules('wanted_gender', 'Gender', 'trim|required|alpha_numeric|min_length[2]|max_length[6]'); 
+		$this->form_validation->set_rules('wanted_age', 'Age', 'trim|required|numeric|min_length[1]|max_length[3]'); 
 
 			// remove tags for security
-			$module_id=htmlspecialchars( $this->input->post('module_id') );
-			$module_name=htmlspecialchars( $this->input->post('module_name') );
-			$module_credit=htmlspecialchars( $this->input->post('module_credit') );
+			$wanted_id=htmlspecialchars( $this->input->post('wanted_id') );
+			$wanted_first_name=htmlspecialchars( $this->input->post('wanted_first_name') );
+			$wanted_last_name=htmlspecialchars( $this->input->post('wanted_last_name') );
+			$wanted_gender=htmlspecialchars( $this->input->post('wanted_gender') );
+			$wanted_age=htmlspecialchars( $this->input->post('wanted_age') );
+
 
 			// set the data array needed on the manupilate course page ( form )
-	        $data['the_course'] = array(
-	        							'module_id' => $module_id,
-	        							'module_name' => $module_name,
-        								'module_credit' => $module_credit
+	        $data['the_wanted'] = array('wanted_id' => $wanted_id,
+	        							'wanted_first_name' => $wanted_first_name,
+	        							'wanted_last_name' => $wanted_last_name,
+	        							'wanted_gender' => $wanted_gender,
+        								'wanted_age' => $wanted_age
         							);
 
 	        if ($this->form_validation->run() == FALSE) 												// if validation fail
@@ -628,42 +642,63 @@ public function manipulate_course_c()
 	        }
 	        else 				// if yes 
 	        {
-	        	$course =  $this->crimeManager->get_course_id($module_id);  						// get a course by id
+				$row=$this->crimeManager->check_wanted_exist($wanted_first_name,$wanted_last_name);  
+				$rows=$this->crimeManager->check_wanted_exist($wanted_last_name,$wanted_first_name);
 
-	        	if (empty($course)) 
+	        	if (empty($row) AND empty($rows)) 
 	        	{
-	        		$data['error']="No course found"; 										// set an error message
+	        		$data['error']="No Person found"; 										// set an error message
 	        	}
 	        	else
 	        	{
-					//update a course
-					$this->crimeManager->update_course($module_id,$module_name,$module_credit); 
-					$data['error']="Course updated successfully"; 							// set a success message
+					//update wanted
+
+					if (!empty($row))
+					{
+						$this->crimeManager->update_wanted($row['wanted_id'],$wanted_first_name,$wanted_last_name,$wanted_gender,$wanted_age); 
+					}
+					if (!empty($rows))
+					{
+						$this->crimeManager->update_wanted($rows['wanted_id'],$wanted_last_name,$wanted_first_name,$wanted_gender,$wanted_age); 
+					}
+					$data['error']="Record updated successfully"; 
 				}
 	        }
 		}
 		elseif ($this->input->post('delete_button'))
 		{
-			$module_id=htmlspecialchars( $this->input->post('module_id') );
+			$wanted_first_name=htmlspecialchars( $this->input->post('wanted_first_name') );
+			$wanted_last_name=htmlspecialchars( $this->input->post('wanted_last_name') );
 
-			$course =  $this->crimeManager->get_course_id($module_id);  						// get a course by id
-			if (empty($course)) 
-	        {
-	        	$data['error']="No Course found"; 										// set an error message
-	        }
-	        else
-	        {
-	        	$this->crimeManager->delete_course($module_id); 							// delete a course
-				$data['error']="Course Deleted successfully"; 					// set a success message
+			$row=$this->crimeManager->check_wanted_exist($wanted_first_name,$wanted_last_name);  
+			$rows=$this->crimeManager->check_wanted_exist($wanted_last_name,$wanted_first_name);
+
+        	if (empty($row) AND empty($rows)) 
+        	{
+        		$data['error']="No Person found"; 										// set an error message
+        	}
+        	else
+        	{
+        		//delete wanted
+
+				if (!empty($row))
+				{
+					$this->crimeManager->delete_wanted($wanted_first_name,$wanted_last_name); 
+				}
+				if (!empty($rows))
+				{
+					$this->crimeManager->delete_wanted($wanted_last_name,$wanted_first_name);
+				}
+				$data['error']="Record Deleted successfully"; 		// set a success message
 			}
 		}
-		$this->load->view('crime/pages/user/manipulate_course_page',$data); // return to browse_course_page with error 
+		$this->load->view('crime/pages/user/manipulate_wanted_page',$data);
 
 	}
 
 //-----------------------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------------------
-
+/*
 	public function courses_list_c()
 	{
 		$data['all_course']=$this->crimeManager->get_all_course(); 			 						// for come back to list page
