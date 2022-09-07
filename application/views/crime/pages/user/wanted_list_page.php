@@ -12,32 +12,32 @@
 <div id="table_box">
 <div class="tables">
 	<h3><?php echo $error; ?> </h3>
-	<h1>Courses List</h1>
+	<h1>Wanted</h1>
 	<table>
 		<div id="cont">
 		<thead>
 			<tr>
-				<th> Module ID </th>
-				<th> Module Name </th>
-				<th> Module Credit </th>
+				<th> Wanted ID </th>
+				<th> Wanted FN </th>
+				<th> Wanted LN </th>
 				<th> Edit </th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php
-				if (isset($all_course)) 
+				if (isset($all_wanted)) 
 				{
-					foreach ($all_course as $result) // get row by row data to avoid array 
+					foreach ($all_wanted as $result) // get row by row data to avoid array 
 					{
 			?>
 						<tr>
-							<td> <?php echo $result['module_id']; ?> </td>
-							<td> <?php echo $result['module_name']; ?> </td>
-							<td> <?php echo $result['module_credit']; ?> </td>
+							<td> <?php echo $result['wanted_id']; ?> </td>
+							<td> <?php echo $result['wanted_first_name']; ?> </td>
+							<td> <?php echo $result['wanted_first_name']; ?> </td>
 							<td>
-								<form method="post" action="<?php echo base_url() ?>crime/user/userController/course_find_list_c" >
+								<form method="post" action="<?php echo base_url() ?>crime/user/userController/wanted_find_list_c" >
 									<input type="submit" value="Edit" name="edit_button">
-									<input type="hidden" name="module_id" value="<?php echo $result['module_id'];  ?> "/>
+									<input type="hidden" name="wanted_id" value="<?php echo $result['wanted_id'];  ?> "/>
 								</form>
 							</td>
 						</tr>

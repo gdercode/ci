@@ -698,37 +698,36 @@ public function manipulate_wanted_c()
 
 //-----------------------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------------------
-/*
-	public function courses_list_c()
+
+	public function wanted_list_c()
 	{
-		$data['all_course']=$this->crimeManager->get_all_course(); 			 						// for come back to list page
-		if (empty($data['all_course']))
+		$data['all_wanted']=$this->crimeManager->get_all_wanted(); 		
+		if (empty($data['all_wanted']))
 		{
-			$data['error'] = 'There is no course found. ';
+			$data['error'] = 'There is no Person found. ';
 		}
-		$this->load->view('crime/pages/user/course_list_page',$data); 				 // go to the course_list_page with data array of all courses
+		$this->load->view('crime/pages/user/wanted_list_page',$data); 
 	}
 
 
 //-----------------------------------------------------------------------------------------------------------------------------------
 
-	public function course_find_list_c()
+	public function wanted_find_list_c()
 	{
-		$module_id = htmlspecialchars( $this->input->post('module_id'));
-		$data['the_course'] = $this->crimeManager->get_course_id($module_id); 		
-			$data['all_course']=$this->crimeManager->get_all_course();
+		$wanted_id = htmlspecialchars( $this->input->post('wanted_id'));
+		$data['the_wanted'] = $this->crimeManager->get_wanted_id($wanted_id); 		
 
-		if(empty( $data['the_course'] ))						// no course existance, then we have to give back a message
+		if(empty( $data['the_wanted'] ))		
 		{
-		 	$data['error']="No course found"; 
-		 	$this->load->view('crime/pages/user/course_list_page',$data);  // go to the course_list_page with data array of all courses
+			$data['error']="No Person found"; 
+			$data['all_wanted']=$this->crimeManager->get_all_wanted();
+		 	$this->load->view('crime/pages/user/wanted_list_page',$data); 
 		}
-		else 																// role exist							
+		else 	
 		{
-			$this->load->view('crime/pages/user/manipulate_course_page',$data);  			// go to the manipulate_course page with data
+			$this->load->view('crime/pages/user/manipulate_wanted_page',$data);  		
 		}
 	}
-*/
 //-----------------------------------------------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------------------------------------------

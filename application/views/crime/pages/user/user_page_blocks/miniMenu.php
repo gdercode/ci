@@ -29,7 +29,7 @@
 		</li>
 
 		<li>
-			<a href="<?php echo base_url() ?>crime/user/userController/courses_list_c"> Browse list of Courses </a>
+			<a href="<?php echo base_url() ?>crime/user/userController/wanted_list_c"> All Wanted Persons </a>
 		</li>
 		
 		<li>
