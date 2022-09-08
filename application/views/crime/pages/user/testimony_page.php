@@ -1,5 +1,5 @@
 <?php
-	$_SESSION['page_name']='user';
+	$_SESSION['page_name']='testimony';
 	$this->load->view('crime/main_parts/header');  // call header 
 ?> 	
 	<div class="menu">
@@ -20,7 +20,7 @@
 				<th> Wanted ID </th>
 				<th> Wanted FN </th>
 				<th> Wanted LN </th>
-				<th> Edit </th>
+				<th> view </th>
 			</tr>
 		</thead>
 		<tbody>
@@ -35,8 +35,8 @@
 							<td> <?php echo $result['wanted_first_name']; ?> </td>
 							<td> <?php echo $result['wanted_last_name']; ?> </td>
 							<td>
-								<form method="post" action="<?php echo base_url() ?>crime/user/userController/wanted_find_list_c" >
-									<input type="submit" value="Edit" name="edit_button">
+								<form method="post" action="<?php echo base_url() ?>crime/user/userController/wanted_find_list_c2" >
+									<input type="submit" value="View" name="view_button">
 									<input type="hidden" name="wanted_id" value="<?php echo $result['wanted_id'];  ?> "/>
 								</form>
 							</td>

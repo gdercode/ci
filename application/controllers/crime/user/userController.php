@@ -493,6 +493,7 @@ public function manipulate_role_c()
 
 //------------------------------------------------------------------------------------------------------------------------------------
 
+
 	public function browse_role_c() 											// browse_role
 	{
 		$this->form_validation->set_rules('role_name', 'Role Name', 'trim|required|min_length[1]|max_length[12]'); // rules for username;
@@ -729,7 +730,60 @@ public function manipulate_wanted_c()
 		}
 	}
 //-----------------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------
 
+	public function wanted_find_list_c2()
+	{
+		$wanted_id = htmlspecialchars( $this->input->post('wanted_id'));
+		$data['the_wanted'] = $this->crimeManager->get_wanted_id($wanted_id); 		
+
+		if(empty( $data['the_wanted'] ))		
+		{
+			$data['error']="No Person found"; 
+			$data['all_wanted']=$this->crimeManager->get_all_wanted();
+		 	$this->load->view('crime/pages/user/testimony_page',$data); 
+		}
+		else 	
+		{
+			$data['the_wanted_testimonies'] = $this->crimeManager->get_wanted_testimonies($wanted_id); 
+			$this->load->view('crime/pages/user/record_testimony_page',$data);  		
+		}
+	}
+//-----------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------
+
+	public function add_testimony_c() 											// add a new role
+	{
+		$user_details = $this->session->userdata('user_details');	
+		$wanted_id=htmlspecialchars( $this->input->post('wanted_id') );
+		$testimony_area=htmlspecialchars( $this->input->post('testimony_area') );
+ 
+		$data['the_wanted'] = $this->crimeManager->get_wanted_id($wanted_id); 
+
+			// set rules for form validation
+			$this->form_validation->set_rules('testimony_area', 'Testimony', 'trim|required|min_length[1]'); 
+	        if ($this->form_validation->run() == FALSE)								 // if validation fail
+	        {
+	        	$data['error'] = ''; // nothing to do
+	        }
+	        else    			// if yes 
+	        {
+				if(!empty($data['the_wanted']))
+				{
+					$this->crimeManager->insert_testimony($user_details['user_id'],$wanted_id, $testimony_area); 
+					$data['error']="Testimony added successfully"; // set a success message
+				}
+				else 
+				{
+					$data['error']="No wanted found";
+				}	
+	        }
+	        $data['the_wanted_testimonies'] = $this->crimeManager->get_wanted_testimonies($wanted_id);
+	        $this->load->view('crime/pages/user/record_testimony_page',$data);	
+	}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------------------
 
 //===========================================================================================================================================

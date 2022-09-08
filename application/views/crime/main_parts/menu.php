@@ -19,6 +19,20 @@
 		<?php
 		}
 
+		$needed_testimony = $this->session->userdata('homepagePermit');
+		if ($permition>=$needed_testimony)
+		{
+		?>
+			<li>
+
+				<a href="<?php echo base_url() ?>crime/CrimeController/testimony_c" 
+				id ="<?php  if( $_SESSION['page_name']=='testimony'){echo "selected";}else{echo "not_selected";}; ?>" > Testimony </a>
+			</li>
+
+		
+		<?php
+		}
+
 		$needed_crime_identification = $this->session->userdata('crimepagePermit');
 		if ($permition>=$needed_crime_identification)
 		{ 

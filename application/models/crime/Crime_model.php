@@ -297,6 +297,7 @@ public function get_user_password($user_id)
 //-----------------------------------------------------------------------------------
 
 	private $wanted_table = 'wanted_table';
+	private $testimony_table = 'testimony_table';
 
 //-------------------------------------------------------------------------------------
 
@@ -385,6 +386,34 @@ public function get_user_password($user_id)
 	}
 
 //------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+
+	public function get_wanted_testimonies($wanted_id)
+	{
+	
+		return $this->db->select('`t_id`,`u_id`,`w_id`,`testimony`,`testimony_date`,`user_first_name`,`user_last_name`', false)
+						->from($this->testimony_table)
+						->join('all_user_table', 'testimony_table.u_id = all_user_table.user_id')
+						->order_by('t_id','desc')
+						->where('w_id',$wanted_id)
+						->get()
+						->result_array();
+	}
+
+//-----------------------------------------------------------------------------
+public function insert_testimony( $user_id, $wanted_id, $testimony )
+	{
+		return $this->db->set( array(
+										't_id'		=>'',
+										'u_id' 		=> $user_id,
+										'w_id'  	=> $wanted_id,
+										'testimony' => $testimony,
+									) 
+							 )
+						->set( 'testimony_date', 'NOW()', false)
+						->insert( $this->testimony_table );
+	}
 
 					//	OTHER COMMENTS
 //------------------------------------------------------------------------------

@@ -190,6 +190,23 @@ class CrimeController extends CI_Controller  						// main controller
 	}
 
 //---------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------
+
+	Public function testimony_c()         							  // homepage function
+	{
+		$needed = $this->session->userdata('homepagePermit');	
+		$this->check_home_page_permit($needed);		
+		
+		$data['all_wanted']=$this->crimeManager->get_all_wanted(); 		
+		if (empty($data['all_wanted']))
+		{
+			$data['error'] = 'There is no Person found. ';
+		}
+		$this->load->view('crime/pages/user/testimony_page',$data);
+		return;
+	}
+
+//---------------------------------------------------------------------------------------------
 	
 	Public function user_pg_controller()						// user_pg_controller function
 	{
