@@ -1,5 +1,5 @@
 <?php
-class UserController extends CI_Controller														 		// UserController
+class UserController extends CI_Controller		 												 		// UserController
 {
 
 	public function __construct()																			// constructor
