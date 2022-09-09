@@ -6,7 +6,7 @@ class UserController extends CI_Controller		 												 		// UserController
  	{
 	 	parent::__construct();  																		// for parent class
 	 	$this->load->database();																		// for database
-	 	$this->load->helper(array('form','url'));													// for url and form
+	 	$this->load->helper(array('form','url','gderfileupload'));													// for url and form
 	 	$this->load->library(array('form_validation'));												// for form validation  
 	 	$this->load->model('crime/crime_model','crimeManager');								// for model with an other name
 
@@ -360,45 +360,15 @@ public function manipulate_role_c()
 
 	public function img_upload_c()
 	{
-	    $wanted_id = htmlspecialchars( $this->input->post('wanted_id') );
-	    $img =$this->input->post('image') ;
-	    $name = htmlspecialchars( $this->input->post('imgName') );
+		$wanted_id = htmlspecialchars( $this->input->post('wanted_id') );
 		
+		
+		$obj_sending_name='image';
 		$folderPath = 'assets/images/users/'.$wanted_id.'/';
-		  
+		$tobe_saved_name = htmlspecialchars( $this->input->post('imgName') );
 
-		$img_name = $name . '.jpg';
-		 $img_tempName = $img['temp_name'];
-		 $img_size = $img['size'];
-		 $img_error = $img['error'];
-		 $img_type = $img['type'];
-
-		$fileExt= explode('.',$img_name);
-		$fileActualExt= strtolower(end($fileExt));
-
-		$allowed = array('jpg','jpeg','png','pdf');
-
-		if (in_array($fileActualExt,$allowed)) {
-			if ($img_error === 0) 
-			{
-				move_uploaded_file($img_name, $folderPath);
-			}
-			else
-			{
-				$data['error']="there was an error uploading your file!";
-			}
-		}
-		else
-		{
-			$data['error']="You can not upload files of this type!";
-		}
-	    // $fetch_imgParts = explode(";base64,", $img);
-	    // $image_type_aux = explode("image/", $fetch_imgParts[0]);
-	    // $image_type = $image_type_aux[0];
-	    // $image_base64 = base64_decode($fetch_imgParts[0]);  
-	    // $file = $folderPath .'/'.$img_name;
-	    // file_put_contents($file, $image_base64);
-	 
+		$image_new = fileuploadCI($obj_sending_name,$folderPath,$tobe_saved_name);
+	
 	 	$data['the_wanted'] = $this->crimeManager->get_wanted_id($wanted_id); 
 		$this->load->view('crime/pages/user/wanted_photo_page',$data); // return to the page
 		return;

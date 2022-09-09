@@ -44,7 +44,7 @@
 	</div>
 
 	<div class="container">
-		<form method="post" action="<?php echo base_url() ?>crime/user/userController/img_upload_c" >
+		<form method="post" action="<?php echo base_url() ?>crime/user/userController/img_upload_c" enctype="multipart/form-data">
 	        <!-- hidden image for upload -->
 	        <input type="hidden" name="wanted_id" value="<?php echo $wanted_id ;?>">
 	       
