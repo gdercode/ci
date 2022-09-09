@@ -35,7 +35,7 @@
 				<input type="text" name="wanted_age" value="<?php echo set_value('wanted_age'); ?>" placeholder="Age" />
 			</p>
 			
-			<p> <input type="submit" name="reg_button" value="Create"> </p>
+			<p> <input type="submit" name="reg_button" value="Send"> </p>
 
 		</form>
 

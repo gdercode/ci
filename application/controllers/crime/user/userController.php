@@ -357,29 +357,54 @@ public function manipulate_role_c()
 
 //-----------------------------------------------------------------------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------------------------------------------------------
-/*
+
 	public function img_upload_c()
 	{
-	    $username = htmlspecialchars( $this->input->post('username') );
-	    $img = htmlspecialchars( $this->input->post('image') );
+	    $wanted_id = htmlspecialchars( $this->input->post('wanted_id') );
+	    $img =$this->input->post('image') ;
 	    $name = htmlspecialchars( $this->input->post('imgName') );
 		
-		$img_name = $name . '.jpg';
-		$folderPath = 'assets/images/users/'.$username.'/';
+		$folderPath = 'assets/images/users/'.$wanted_id.'/';
 		  
-	    $fetch_imgParts = explode(";base64,", $img);
-	    $image_type_aux = explode("image/", $fetch_imgParts[0]);
-	    $image_type = $image_type_aux[1];
-	    $image_base64 = base64_decode($fetch_imgParts[1]);  
-	    $file = $folderPath .'/'.$img_name;
-	    file_put_contents($file, $image_base64);
+
+		$img_name = $name . '.jpg';
+		 $img_tempName = $img['temp_name'];
+		 $img_size = $img['size'];
+		 $img_error = $img['error'];
+		 $img_type = $img['type'];
+
+		$fileExt= explode('.',$img_name);
+		$fileActualExt= strtolower(end($fileExt));
+
+		$allowed = array('jpg','jpeg','png','pdf');
+
+		if (in_array($fileActualExt,$allowed)) {
+			if ($img_error === 0) 
+			{
+				move_uploaded_file($img_name, $folderPath);
+			}
+			else
+			{
+				$data['error']="there was an error uploading your file!";
+			}
+		}
+		else
+		{
+			$data['error']="You can not upload files of this type!";
+		}
+	    // $fetch_imgParts = explode(";base64,", $img);
+	    // $image_type_aux = explode("image/", $fetch_imgParts[0]);
+	    // $image_type = $image_type_aux[0];
+	    // $image_base64 = base64_decode($fetch_imgParts[0]);  
+	    // $file = $folderPath .'/'.$img_name;
+	    // file_put_contents($file, $image_base64);
 	 
-	 	$data['username'] = $username;
-		$this->load->view('crime/pages/user/user_photo_page',$data); // return to the page
+	 	$data['the_wanted'] = $this->crimeManager->get_wanted_id($wanted_id); 
+		$this->load->view('crime/pages/user/wanted_photo_page',$data); // return to the page
 		return;
 
 	}
-*/
+
 //-----------------------------------------------------------------------------------------------------------------------------------
 	public function add_user_c() 											// add a new user
 	{
@@ -665,6 +690,7 @@ public function manipulate_wanted_c()
 					$data['error']="Record updated successfully"; 
 				}
 	        }
+	        $this->load->view('crime/pages/user/manipulate_wanted_page',$data);
 		}
 		elseif ($this->input->post('delete_button'))
 		{
@@ -692,8 +718,37 @@ public function manipulate_wanted_c()
 				}
 				$data['error']="Record Deleted successfully"; 		// set a success message
 			}
+			$this->load->view('crime/pages/user/manipulate_wanted_page',$data);
 		}
-		$this->load->view('crime/pages/user/manipulate_wanted_page',$data);
+		elseif ($this->input->post('image_button'))
+		{
+			$wanted_first_name=htmlspecialchars( $this->input->post('wanted_first_name') );
+			$wanted_last_name=htmlspecialchars( $this->input->post('wanted_last_name') );
+
+			$row=$this->crimeManager->check_wanted_exist($wanted_first_name,$wanted_last_name);  
+			$rows=$this->crimeManager->check_wanted_exist($wanted_last_name,$wanted_first_name);
+
+        	if (empty($row) AND empty($rows)) 
+        	{
+        		$data['error']="No Person found"; 										// set an error message
+        	}
+        	else
+        	{
+        		//delete wanted
+
+				if (!empty($row))
+				{
+					$data['the_wanted'] = $row;
+				}
+				if (!empty($rows))
+				{
+					$data['the_wanted'] = $rows;
+				}
+				$data['error']="Record Deleted successfully"; 		// set a success message
+			}
+			$this->load->view('crime/pages/user/wanted_photo_page',$data);
+		}
+		
 
 	}
 

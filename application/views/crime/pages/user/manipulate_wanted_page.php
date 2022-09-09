@@ -22,6 +22,7 @@
 
 		<form id="registerForm" method="post" action="<?php echo base_url() ?>crime/user/userController/manipulate_wanted_c" >
 			 <h3><?php echo $error; ?> </h3>
+			<p><input type="submit" name="image_button" value="Face" > </p>
 			
 			<input type="hidden"  name="wanted_id" value="<?php echo $wanted_id;  ?>" />
 			<p>	
