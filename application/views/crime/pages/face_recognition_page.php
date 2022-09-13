@@ -11,7 +11,10 @@
 
 		<input type="file" id="imageUpload">
 
-
+		<div class="imgBattons">
+            <input type="file" id="image-input" name="image" accept="image/jpeg, image/png, image/jpg">
+            <button id="submitBtn" onclick="recognize_face()">Identify</button> 
+        </div>
 
 
 
@@ -24,9 +27,9 @@
 		<div class="successMessage"><?php //echo $username; ?></div>
 		<input type="hidden" id="username" value="<?php //echo $username;  ?> "/>
 		<input type="hidden" id="baseURL"  value="<?php // echo base_url(); ?>">
-		<div id="imageBoxView" width="400" height="400" > </div>
-
+		<!-- <div id="imageBoxView" width="400" height="400" > </div> -->
 	</div>
+	
 
 </div>
 <div id="display-image"></div>
