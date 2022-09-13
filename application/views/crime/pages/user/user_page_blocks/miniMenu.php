@@ -1,6 +1,9 @@
 <nav class="miniMenu"> 
 	<ul>
 		<li>
+			<a href="<?php echo base_url() ?>crime/CrimeController/crime_pg_controller" > Crime Identification </a>
+		</li>
+		<li>
 			<a href="<?php echo base_url() ?>crime/user/userController/browse_user_c" > Browse a User </a>
 		</li>
 

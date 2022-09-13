@@ -29,6 +29,7 @@
 	</div>
 
 </div>
+<div id="display-image"></div>
 
 <script difer src="<?php echo base_url('assets/javascript/face-login/face-api.min.js'); ?>"></script>
 <script difer src=" <?= base_url('assets/javascript/jquery.3.min.js'); ?> "></script>

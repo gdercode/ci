@@ -361,11 +361,14 @@ public function manipulate_role_c()
 	public function img_upload_c()
 	{
 		$wanted_id = htmlspecialchars( $this->input->post('wanted_id') );
-		
-		
 		$obj_sending_name='image';
 		$folderPath = 'assets/images/users/'.$wanted_id.'/';
 		$tobe_saved_name = htmlspecialchars( $this->input->post('imgName') );
+
+		if (is_file($folderPath.''.$tobe_saved_name.'.jpg')) 
+		{
+			unlink($folderPath.''.$tobe_saved_name.'.jpg');
+		}
 
 		$image_new = fileuploadCI($obj_sending_name,$folderPath,$tobe_saved_name);
 	
@@ -550,9 +553,8 @@ public function manipulate_role_c()
 				$this->crimeManager->insert_wanted($wanted_first_name,$wanted_last_name,$wanted_gender,$wanted_age);
 				$data['error']="recorded successfully"; // set a success message
 			}
-			else // Course ID exist
+			else
 			{
-				// we have to give error message for course existance
 				$data['error']="This Person already exists";
 			}
 			
@@ -704,17 +706,28 @@ public function manipulate_wanted_c()
         	}
         	else
         	{
-        		//delete wanted
-
 				if (!empty($row))
 				{
+					$wanted_id=$row['wanted_id'];
+					$folderPath = 'assets/images/users/'.$wanted_id.'/';
+					if (!is_dir($folderPath)) 
+					{
+						mkdir($folderPath);
+					}
 					$data['the_wanted'] = $row;
 				}
+
 				if (!empty($rows))
 				{
+					$wanted_id=$rows['wanted_id'];
+					$folderPath = 'assets/images/users/'.$wanted_id.'/';
+					if (!is_dir($folderPath)) 
+					{
+						mkdir($folderPath);
+					}
 					$data['the_wanted'] = $rows;
 				}
-				$data['error']="Record Deleted successfully"; 		// set a success message
+				// $data['error']="Record Deleted successfully"; 		// set a success message
 			}
 			$this->load->view('crime/pages/user/wanted_photo_page',$data);
 		}

@@ -33,16 +33,16 @@
 		<?php
 		}
 
-		$needed_crime_identification = $this->session->userdata('crimepagePermit');
-		if ($permition>=$needed_crime_identification)
-		{ 
-		?>
-			<li><a href="<?php echo base_url() ?>crime/CrimeController/crime_pg_controller" 
-				id ="<?php if( $_SESSION['page_name']=='identification'){echo "selected";}else{echo "not_selected";}; ?>" > Crime Identification </a>
-			</li>
+		// $needed_crime_identification = $this->session->userdata('crimepagePermit');
+		// if ($permition>=$needed_crime_identification)
+		// { 
+		// ?>
+			 <!-- <li><a href="<?php //echo base_url() ?>crime/CrimeController/crime_pg_controller" 
+		 		id ="<?php// if( $_SESSION['page_name']=='identification'){echo "selected";}else{echo "not_selected";}; ?>" > Crime Identification </a>
+		// 	</li> -->
 
-		<?php
-		}
+		 <?php
+		// }
 
 		$needed_admin = $this->session->userdata('adminpagePermit');
 		if ($permition>=$needed_admin)

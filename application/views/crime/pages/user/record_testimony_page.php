@@ -13,7 +13,39 @@
 		$wanted_gender = isset($the_wanted) ? $the_wanted['wanted_gender'] : ''; 
 		$wanted_age = isset($the_wanted) ? $the_wanted['wanted_age'] : ''; 
 ?>
+					<!-- IMAGES OF THE WANTED -->
+    <!-- current images  -->
+	<br><div id="userImages"> 
+		<?php 
+			$imgPath = base_url('assets/images/users/'.$wanted_id);
 
+			for ($i=1; $i <= 4; $i++) 
+			{ 
+				if (is_file('assets/images/users/'.$wanted_id.'/'.$i.'.jpg'))
+				{
+		?>
+				<div id="userImage">
+					<img src="<?php echo $imgPath.'/'.$i.'.jpg'; ?>" >
+				</div>
+		<?php 
+				}
+				else
+				{
+		?>
+					<div id="noUserImage">
+						<label> No Image </label>
+					</div>
+		<?php 
+				}
+			}	
+			
+		?>
+	</div>
+
+ 
+
+    <!-- //////////////// -->
+	
 <div id="logContainer_browse">
 	
 	<div class="testimony_tables">
