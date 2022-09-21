@@ -1,10 +1,18 @@
 var submitBtn = document.getElementById('submitBtn');
 submitBtn.style.display = 'none';
+const submitBtn_label = document.getElementById('submitBtn-label');
+submitBtn_label.style.display = 'none';
 const image_input = document.getElementById('image-input');
+image_input.style.display = 'none';
+const image_input_label = document.getElementById('image-input-label');
+image_input_label.style.display = 'none';
 
 var username = document.getElementById('username').value
 var baseURL = document.getElementById('baseURL').value
 const assetsURL= window.location.origin+'/ci/assets'
+
+var available_users = 0;
+let izina='';
 
 Promise.all([
     faceapi.nets.faceRecognitionNet.loadFromUri(assetsURL+'/models'),
@@ -14,7 +22,8 @@ Promise.all([
 
 function start() 
 {
-  document.getElementById('message').innerHTML = ' Yoou can upload now ';
+  document.getElementById('message').innerHTML = ' You can upload now ';
+   image_input_label.style.display = 'block';
 }
 
 image_input.addEventListener("change", function() 
@@ -26,7 +35,9 @@ image_input.addEventListener("change", function()
   });
   reader.readAsDataURL(this.files[0]);
 
-  submitBtn.style.display = "block";
+  recognize_face();
+
+  document.getElementById('message').innerHTML = 'Identifing ... ';
 });
 
 
@@ -34,7 +45,7 @@ async function recognize_face()
 {
     const image = await faceapi.bufferToImage(image_input.files[0])
     const detections = await faceapi.detectAllFaces(image).withFaceLandmarks().withFaceDescriptors()
-    var available_users = detections.length
+    available_users = detections.length
     console.log(available_users)
     if (available_users>0) 
     {
@@ -42,19 +53,25 @@ async function recognize_face()
         const labeledDescriptors = await loadLabeledImages()
         const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors, 0.4)
         const result  = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor))
-        let izina = result[0]['label']
-        if (izina == username)
-         {
-           document.getElementById('message').innerHTML = 'Criminal detected ';
-         }
-         else
-         {
-            document.getElementById('message').innerHTML = 'Not in the list we have ';
-         }
-    }
-    else
-    {
-         document.getElementById('message').innerHTML = 'No face detected ';
+        izina = result[0]['label']
+
+        if (available_users>0) 
+        {
+            if (izina == username)
+             {
+               document.getElementById('message').innerHTML = 'Criminal detected ';
+             }
+             else
+             {
+                document.getElementById('message').innerHTML = 'Not in the list we have ';
+             }
+        }
+        else
+        {
+            document.getElementById('message').innerHTML = 'No face detected ';
+        }
+        image_input_label.style.display = "none";
+        submitBtn_label.style.display = "block";
     }
 }
 
@@ -76,9 +93,6 @@ function loadLabeledImages() {
         })
     )
 }
-	
-
-
 
 // const imageUpload = document.getElementById('imageUpload')
 // const imageBoxView = document.getElementById('imageBoxView')

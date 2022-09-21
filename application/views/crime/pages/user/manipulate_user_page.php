@@ -33,7 +33,7 @@
 			 <input type="hidden" name="reg_id" value="<?php echo $id;  ?> "/>
 
 			 <!-- user photo link of the page -->
-			 <p><input type="submit" name="photo_button" value="Take a Photo" > </p>
+			 <!-- <p><input type="submit" name="photo_button" value="Take a Photo" > </p> -->
 
 			<p>	
 				<h5><?php echo form_error('reg_firstname'); ?></h5>

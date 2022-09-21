@@ -7,14 +7,7 @@
 	<div class="menu">
 		<?php	$this->load->view('crime/main_parts/menu'); 	// call menu ?> 
 	</div>
-
-
-		<input type="file" id="imageUpload">
-
-		<div class="imgBattons">
-            <input type="file" id="image-input" name="image" accept="image/jpeg, image/png, image/jpg">
-            <button id="submitBtn" onclick="recognize_face()">Identify</button> 
-        </div>
+	
 
 
 
@@ -22,17 +15,24 @@
 <div id="logContainer">
 
 	<div id="loginBox">
-		<h3 id="message" class="errorMessage" ></h3>
-		<h2 id="secondMessage" class="errorMessage" >Recognition</h2>
-		<div class="successMessage"><?php //echo $username; ?></div>
 		<input type="hidden" id="username" value="<?php //echo $username;  ?> "/>
 		<input type="hidden" id="baseURL"  value="<?php // echo base_url(); ?>">
-		<!-- <div id="imageBoxView" width="400" height="400" > </div> -->
 	</div>
-	
-
+	<center><b id="message" class="errorMessage" ></b></center>
 </div>
 <div id="display-image"></div>
+<input type="file" id="image-input" name="image" accept="image/jpeg, image/png, image/jpg">
+<label id="image-input-label" for="image-input">Upload</label>
+
+<form>
+	<input type="hidden" name="wanted_id">
+	<input type="submit" id="submitBtn" name="">
+	<label id="submitBtn-label" for="submitBtn">View</label>
+</form>
+
+
+
+
 
 <script difer src="<?php echo base_url('assets/javascript/face-login/face-api.min.js'); ?>"></script>
 <script difer src=" <?= base_url('assets/javascript/jquery.3.min.js'); ?> "></script>

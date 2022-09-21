@@ -1502,7 +1502,8 @@ footer
   background-position: center;
   background-size: cover;
   margin: auto;
-  margin-left: 400px;
+  margin-left: 300px;
+  margin-top: 10px;
 }
 
 
