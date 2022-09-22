@@ -15,8 +15,8 @@
 <div id="logContainer">
 
 	<div id="loginBox">
-		<input type="hidden" id="username" value="<?php //echo $username;  ?> "/>
-		<input type="hidden" id="baseURL"  value="<?php // echo base_url(); ?>">
+		<input type="hidden" id="username" value="<?php echo $username;  ?> "/>
+		<input type="hidden" id="baseURL"  value="<?php echo base_url(); ?>">
 	</div>
 	<center><b id="message" class="errorMessage" ></b></center>
 </div>
@@ -24,8 +24,8 @@
 <input type="file" id="image-input" name="image" accept="image/jpeg, image/png, image/jpg">
 <label id="image-input-label" for="image-input">Upload</label>
 
-<form>
-	<input type="hidden" name="wanted_id">
+<form method="post" action="<?php echo base_url("crime/user/userController/wanted_find_list_c2") ?>">
+	<input type="hidden" id="detected" name="wanted_id">
 	<input type="submit" id="submitBtn" name="">
 	<label id="submitBtn-label" for="submitBtn">View</label>
 </form>
