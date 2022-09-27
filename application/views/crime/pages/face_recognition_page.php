@@ -2,20 +2,19 @@
 	$_SESSION['page_name']='identification';
 	$this->load->view('crime/main_parts/header'); 
 
-	$username = isset($username) ? $username : '';
+	for($i=0; $i<3; $i++)
+	{
+	    echo '<input type="hidden" id="'.$i.'"  value="'. $all_wanted_ids[$i]['wanted_id'].'">';
+	}
 ?>
-	<div class="menu">
-		<?php	$this->load->view('crime/main_parts/menu'); 	// call menu ?> 
-	</div>
-	
 
-
-
+<div class="menu">
+	<?php	$this->load->view('crime/main_parts/menu'); 	// call menu ?> 
+</div>
 
 <div id="logContainer">
 
 	<div id="loginBox">
-		<input type="hidden" id="username" value="<?php echo $username;  ?> "/>
 		<input type="hidden" id="baseURL"  value="<?php echo base_url(); ?>">
 	</div>
 	<center><b id="message" class="errorMessage" ></b></center>

@@ -1,3 +1,16 @@
+
+var user = [] 
+const username = [] 
+
+let b =""
+
+for(let i=0; i<3; i++)
+{
+    b=i
+    username[i]= document.getElementById(b).value
+}
+
+console.log(username)
 var submitBtn = document.getElementById('submitBtn');
 const submitBtn_label = document.getElementById('submitBtn-label');
 const image_input = document.getElementById('image-input');
@@ -8,13 +21,12 @@ submitBtn_label.style.display = 'none';
 image_input.style.display = 'none';
 image_input_label.style.display = 'none';
 
-var username = document.getElementById('username').value
 const assetsURL= window.location.origin+'/ci/assets'
 
 var available_users = 0;
 let izina='';
 
-username = ['lidivine','13']
+// let username = ['lidivine','13']
 
 Promise.all([
     faceapi.nets.faceRecognitionNet.loadFromUri(assetsURL+'/models'),

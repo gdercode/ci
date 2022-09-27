@@ -346,6 +346,19 @@ public function get_user_password($user_id)
 //-----------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------
 
+	public function get_all_wanted_ids()
+	{
+	
+		return $this->db->select('`wanted_id`', false)
+						->from($this->wanted_table)
+						->order_by('wanted_id','desc')
+						->get()
+						->result_array();
+	}
+
+//-----------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------
+
 	public function update_wanted($wanted_id,$wanted_first_name,$wanted_last_name,$wanted_gender,$wanted_age)
 	{
 		return $this->db->set( array(
